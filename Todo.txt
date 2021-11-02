@@ -1,0 +1,33 @@
+Development status: Under testing
+
+pos translations        	                	working
+clipping            	    		            working
+window function calls	                  	    working
+focusing windows        	    	            working
+window resizing	            	            	working
+window movement	            	            	working
+restroring api functions                    	working
+window button pressing      	            	working
+closing windows	            	            	working
+fullscreen window	            	            working
+minimize windows		                        working
+window titles			                        working
+displaying windows	                        	working
+disable resizing		                        not tested
+window tick object	            	            working
+plug in interface 	            	            not implemented yet
+proxy (to ensure functionality)              	won't be implemented
+fullscreen mode		                        	won't be implemented
+custom cursors		                           	won't be implemented
+button function		                        	you can do it yourself :)
+tooltips		                             	won't be implemented
+dragbox (helper for mobile user)                won't be implemented
+only the focused window has access to inputs    working
+sound management/interface for it               won't be implemented (maybe later, reason is to stop windows interfering each other)
+peek/poke modification (for sound only)         Ah yes.. no
+
+in a nutsell:
+displaying windows	                        	working
+moving&resizing windows	                    	working
+minimizing windows	                           	working
+maximizing windows	                           	minor grphical changes are requied

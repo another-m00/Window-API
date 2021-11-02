@@ -1,0 +1,12 @@
+Window api
+egy ablak ebből áll:
+2 pozíció határozó
+2 méret
+keret és gomb szín
+render és update
+3 esemény kezelő
+
+Az ablakok tulajdonságai:
+tick: óra jel, mutatja mennyi ciklus ment végbe az ablak megnyitása óta
+
+x,y: pozíció
