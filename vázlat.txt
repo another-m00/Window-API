@@ -8,5 +8,10 @@ render és update
 
 Az ablakok tulajdonságai:
 tick: óra jel, mutatja mennyi ciklus ment végbe az ablak megnyitása óta
-
+drawtick: rajzoló órajel
 x,y: pozíció
+w,h: méret
+render: rajzoló órajel
+update: frissítő órajel
+ic: inner color/ gombok színe, az alapértelmezett windows.ic
+fc: frame color/ ablak színe, windows.fc

@@ -30,4 +30,4 @@ in a nutsell:
 displaying windows	                        	working
 moving&resizing windows	                    	working
 minimizing windows	                           	working
-maximizing windows	                           	minor grphical changes are requied
+maximizing windows	                           	working
