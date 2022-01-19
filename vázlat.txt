@@ -15,3 +15,12 @@ render: rajzoló órajel
 update: frissítő órajel
 ic: inner color/ gombok színe, az alapértelmezett windows.ic
 fc: frame color/ ablak színe, windows.fc
+
+használt változók:
+m egér
+g ideiglenes
+w window objektum
+h counter for windows
+i counter for windows
+f ideiglenes
+x ideiglenes
