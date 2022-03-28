@@ -1,3 +1,4 @@
 # Js code
 
-Here you *will* find the code for the Window API which you can copy and include in you code.
+This is the code, not the final version though.
+Currently there are no other language variants

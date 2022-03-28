@@ -17,19 +17,21 @@ I tried to make the api as easy-to-use as possible so the basics you need to kno
 ## Windows' scope
 The windows' render and update functions can freely access any global variable or set them, although the API uses a few variables, ao you can't access those from outside the Windows and they reset each cycle.
 These variables are:
-- m (contains the raw untranslated mouse output + a helper function)
-- w (the window object, it's used by the api)
-- x (Temporary variable, I will remove it on the next code cleanup)
-- h (counter of the windows)
-- i (another window counter, will be removed on the next code cleanup)
-- g (temporary variable)
-- f (temporary variable)
+- m :contains the untranslated mouse output capped at screen cordinates + a helper function, not available in the update function
+- w :the window object
+- H :temporary variable
+- K :temporary variable
+- Z :temporary variable
+- C :temporary variable (the count of windows in the update function)
+Temporary variables are actively used by the API
 
 ## The Window() constructor and window data
 You can access the window's data in the `this` keyword. This makes dynamic windows possible and keep their context separated.
 The local w variable also contains the window object because that's the variable the rendering script uses.
 
 The constructor takes 14 arguments:
+`new Window(x,y,w,h,title,render,buttons,update,frame color,inner color,)`
+
 - x *number*
     Sets the X position of the top left corner of the window. Default value is 0.
 - y *number*
@@ -54,14 +56,6 @@ The constructor takes 14 arguments:
         0x2: Fullscreen button.
         0x4: Minimize button. If clicked on it will minimize the window. When the window is minimized it's render function is not called.
     The default value is is 1 (Close button only)
-- fc *number less than 16, matches the palette*
-    This is the frame color. If the value is over 16 only the last 4 bit will be considered as the color code.
-    You can set the default value in `windows.fc`, and the default inculded in the code is `15`.
-    Every new window created defaults the frame color to `window.fc`.
-- ic *number less than 16, matches the palette*
-    This is the inner and button color of the window. If the value is over 16 only the last 4 bit will be considered as the color code.
-    You can set the default value in `windows.ic`, and the default inculded in the code is `13`.
-    Every new window created defaults the inner color to `window.ic`.
 - update *function*
     This is the function that runs every rendering cycle even if the window is minimized. It does not have access to any input or drawing command when the window is minimized.
     You can check if the window is minimised by running a drawing command in the update cycle (Note that it will render if the window is not minimized.) Every drawing command return 0 if they are called while the window is minimized, nothing otherwise.
@@ -72,6 +66,16 @@ The constructor takes 14 arguments:
     If false, fixes the window size and the window cannot be resized by mouse.
     Accessable with `this.re` property.
     Default value is true.
+- frame color *number less than 16, matches the palette*
+    This is the frame color. If the value is over 16 only the last 4 bit will be considered as the color code.
+    You can set the default value in `windows.fc`, and the default inculded in the code is `15`.
+    Every new window created defaults the frame color to `window.fc`.
+    Accessable through `this.fc`
+- inner color *number less than 16, matches the palette*
+    This is the inner and button color of the window. If the value is over 16 only the last 4 bit will be considered as the color code.
+    You can set the default value in `windows.ic`, and the default inculded in the code is `13`.
+    Every new window created defaults the inner color to `window.ic`.
+    Accessable through `this.ic`
 - onclose *function*
     An event handler function, called when the close button is pressed. If the function returns true, the window stays open.
     Accessable through `this.onclose`
