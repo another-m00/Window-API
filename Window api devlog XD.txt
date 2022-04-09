@@ -17,7 +17,7 @@ restroring api functions	working
 window button pressing		working
 closing windows			working
 fullscreen window		working
-minimize windows		Crashes the whole program
+minimize windows		working
 window titles			working
 displaying windows		working
 disable resizing		not tested
@@ -36,7 +36,7 @@ peek/poke modification (for sound only)      -Ah yes.. no
 in a nutsell:
 displaying windows		working
 moving&resizing windows		working
-minimizing windows		Critical bug
+minimizing windows		working
 maximizing windows		minor grphical changes are requied
 
 

@@ -8,6 +8,3 @@
   You will need to check if the object is there before accessing it.
 
   This is due to a "bug" (that I'm not planning on fixing), when a window is deleted, both the update and the rendering function will fire once more
-
-### There's a currently unidentified bug: The program crashes when you take out a window from minimized mode
-  It has to do something with the objects that are added to the windows.active array. Will need debugging.

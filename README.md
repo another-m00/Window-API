@@ -11,7 +11,7 @@ The API is backwards compatible, you can use it from TIC80 v0.80.
 ## Functions
 I tried to make the api as easy-to-use as possible so the basics you need to know to are 3 functions: `render()` `new Window()` and `windows.add()`.
 - render() handles everything. You only need to call it in every `TIC()` cycle once. Render does not accept parameters.
-- new Window() is the Window object constructor. You can find more info on that later.
+- new Window() is the Window object constructor (not exactly a contructor,since it is not linked to a class). You can find more info on that later.
 - windows.add(<window object>) is the same as `windows.active.push(<Window object>)`. It registers and starts rendering a window object on the next cycle.
 
 ## Windows' scope
@@ -23,6 +23,7 @@ These variables are:
 - K :temporary variable
 - Z :temporary variable
 - C :temporary variable (the count of windows in the update function)
+
 Temporary variables are actively used by the API
 
 ## The Window() constructor and window data

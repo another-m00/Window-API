@@ -148,7 +148,7 @@ H=128-((K/4)|0)*8,C=(K%4)*60+51-(w.btns&1)*7
 //minimized window clicks
 if(m[2]){
 if(windows.ii(m[0],m[1],C,H,7,8)&&windows.co(m[0],m[1],-1)){windows.active.push(windows.mini.splice(C,1)[0]);w.Fg()}
-if(windows.ii(m[0],m[1],C+7,H,7,8)&&windows.co(m[0],m[1],-1)&&w.btns&1){windows.mini.splice(C,1)}
+if(windows.ii(m[0],m[1],C+7,H,7,8)&&windows.co(m[0],m[1],-1)&&w.btns&1){windows.mini.splice(K,1)}
 }
 //disabling the input commands
 Z=function(){return 0}
