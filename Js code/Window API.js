@@ -1,11 +1,3 @@
-// title:  Tic80 windows API V1.0
-// author: Szecska
-// desc:   Customizable windows with isolated contexts
-// script: js
-
-var t=0
-var x=96
-var y=24
 //backwards compatibility for v0.80
 var elli=elli||"",ellib=ellib||""
 
@@ -17,7 +9,7 @@ fo:function(w){return windows.active.indexOf(w)==windows.active.length-1},
 to:function(fn,w){return Function("var a = Array.prototype.slice.call(arguments);var h=windows.tr.i["+fn+"];for(var g in a){if(h[1].indexOf(Number(g))>-1){a[g]+=(h[1].indexOf(Number(g))%2==0?this.x+2:this.y+8)}};h[0](a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],a[9],a[10],a[11],a[12],a[13])").bind(w)},
 it:function(fn,w){return Function("var a = Array.prototype.slice.call(arguments);return windows.fo(this)&&windows.tr.st["+fn+"](a[0],a[1],a[2])").bind(w)},
 ii:function(p,q,x,y,w,h){return p>=x&&p<=x+w&&q>=y&&q<=y+h},
-co:function(x,y,l){var f=!0,i;for(i=windows.active.length-1;i>l;i--){f=windows.ii(x,y,windows.active[i].x,windows.active[i].y,windows.active[i].w,windows.active[i].h)?!1:f};return f},
+co:function(x,y,l){var f=!0,i;for(i=windows.active.length-1;i>l&&i>=0;i--)f=windows.ii(x,y,windows.active[i].x,windows.active[i].y,windows.active[i].w,windows.active[i].h)?!1:f;return f},
 clw:function(w){return windows.active.splice(windows.active.lastIndexOf(w),1)[0]},
 add:function(){this.add=this.active.push}}
 windows.add()
@@ -147,7 +139,7 @@ w=windows.mini[K]
 H=128-((K/4)|0)*8,C=(K%4)*60+51-(w.btns&1)*7
 //minimized window clicks
 if(m[2]){
-if(windows.ii(m[0],m[1],C,H,7,8)&&windows.co(m[0],m[1],-1)){windows.active.push(windows.mini.splice(C,1)[0]);w.Fg()}
+if(windows.ii(m[0],m[1],C,H,7,8)&&windows.co(m[0],m[1],-1)){windows.active.push(windows.mini.splice(K,1)[0]);w.Fg()}
 if(windows.ii(m[0],m[1],C+7,H,7,8)&&windows.co(m[0],m[1],-1)&&w.btns&1){windows.mini.splice(K,1)}
 }
 //disabling the input commands
@@ -176,34 +168,4 @@ tri=Z[10][0];textri=Z[11][0]
 elli=Z[12][0];ellib=Z[13][0]
 Z=windows.tr.st
 key=Z[0];keyp=Z[1];btn=Z[2];btnp=Z[3];mouse=windows.tr.m
-}
-
-windows.active.push(new Window(41,41,60,40,"Hoi I'm tem! :)!",function(){cls(11);spr(32+(t/3|0)%8,10,15)},5))
-windows.active.push(new Window(55,70,100,20,"Longer Stuff!",function(){
-var i=0,x=windows.active[i],m=windows.tr.m()
-if(this.x==0&&this.y==0){this.title=this.w+";"+this.h+":"+this.x+";"+this.y}
-cls()
-print("ii:"+windows.ii(m[0],m[1],x.x,x.y,x.w,x.h)+" co:"+windows.co(m[0],m[1],i)+" i:"+!(i==-1),0,0,12)},3))
-windows.active.push(new Window(100,55,40,70,"Lorem ipsum dolor sit amet, this is a long title"))
-
-function TIC()
-{
-	cls(1)
-	var m=mouse()
-	//print(m[2]+" "+windows.co(m[0],m[1],1)+" "+!windows.ar+","+windows.mm+"\n"+JSON.stringify(m)) //see in known bugs
- clip(60,20,100,60)
-	if(btn(0))y--
-	if(btn(1))y++
-	if(btn(2))x--
-	if(btn(3))x++
- 
-	cls(13)
-	spr(1+((t%60)/30|0)*2,x,y,14,3,0,0,2,2)
-	print("HELLO WORLD!",84,84)
-	t++
-	clip()
-	circ(100,101,30,2,3,3,4,5,6,78,6)
-	rectb(70,71,61,61,4)
-	line(100,101,130,101,4)
-	render()
 }
