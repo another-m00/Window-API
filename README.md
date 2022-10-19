@@ -103,11 +103,12 @@ The constructor takes 14 arguments:
     An event handler called when selected window is no longer focused. Accessible with `this.Fl`.
 
 ## Links
-*for now please find them in the respoitory*
-Known bugs
+[Known bugs](https://github.com/another-m00/Window-API/blob/main/Known%20bugs.md)
 
-Minified version
+Minified version (Soon)
 
-Examples
+[Examples](https://github.com/another-m00/Window-API/tree/main/Js%20code/examples)
 
-API code
+[API code](https://github.com/another-m00/Window-API/blob/main/Js%20code/Window%20API.js)
+
+[Live demo](https://tic80.com/play?cart=3039)
