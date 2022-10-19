@@ -103,6 +103,7 @@ The constructor takes 14 arguments:
     An event handler called when selected window is no longer focused. Accessible with `this.Fl`.
 
 ## Links
+*for now please find them in the respoitory*
 Known bugs
 
 Minified version

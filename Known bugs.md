@@ -10,5 +10,8 @@
 
   *Note:* there is no way implemented to bring back a window that is completely offscreen. You might add ths function.
 
+### Clicking the fullscreen button on an already fullscreen window won't reset the window's previous size
+  This will be fixed sooner or later.
+
 ### The code is a complete mess
    Yes. I tried to write a code that is somewhat efficient, and small. I may have failed.
