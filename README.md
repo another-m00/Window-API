@@ -2,6 +2,7 @@
 
 
 # Window-API
+
 This is a Window API for TIC80 which grants users/players freely customizable windows and programmers a relatively easy proramming interface.
 The API is backwards compatible, you can use it from TIC80 v0.80.
 
@@ -10,25 +11,32 @@ The API is backwards compatible, you can use it from TIC80 v0.80.
 *The API also needs to be tested before releasing*
 
 ## Functions
+
 I tried to make the api as easy-to-use as possible so the basics you need to know to are 3 functions: `render()` `new Window()` and `windows.add()`.
+
 - render() handles everything. You only need to call it in every `TIC()` cycle once. Render does not accept parameters.
 - new Window() is the Window object constructor (not exactly a contructor,since it is not linked to a class). You can find more info on that later.
 - windows.add(<window object>) is the same as `windows.active.push(<Window object>)`. It registers and starts rendering a window object on the next render cycle.
 
 ## Windows' scope
+
 The windows' render and update functions can freely access any global variable or set them, although the API uses a few variables, ao you can't access those from outside the Windows and they reset each cycle.
 These variables are:
+
 - m :contains the untranslated mouse output capped at screen cordinates + a helper function, not available in the update function
 - w :the window object
 - H :temporary variable
 - K :temporary variable (The count of the window)
 - Z :temporary variable
-- C :temporary variable 
+- C :temporary variable
 
 Temporary variables are actively used by the API, you shouldn't use them as global variables as they will be overwritten.
-Currently the inputs are not captured, you can always get the current state of the inputs with the built-in Tic-80 API. If it's a popular demand, I'll add a plugin for that.
+
+The inputs are captured, both `mouse`, `btn`, `btnp`, `key`, and `keyp` will return false values when they are called from an unfocused window. In case of `mouse`, all button states are false, the position is (-8,-8) and bith scroll values are 0.
+You can use these functions normally outside the windows, since once the rendering is finished evrything is restored.
 
 ## The Window() constructor and window data
+
 You can access the window's data in the `this` keyword. This makes dynamic windows possible and keep their context separated.
 The local w variable also contains the window object because that's the variable the rendering script uses.
 
@@ -103,6 +111,7 @@ The constructor takes 14 arguments:
     An event handler called when selected window is no longer focused. Accessible with `this.Fl`.
 
 ## Links
+
 [Known bugs](https://github.com/another-m00/Window-API/blob/main/Known%20bugs.md)
 
 Minified version (Soon)

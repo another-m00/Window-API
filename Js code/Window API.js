@@ -6,13 +6,12 @@ var m=windows.tr.m();if(!windows.fo(this))return [-8,-8,!1,!1,!1,0,0]
 m[0]-=this.x-2;m[1]-=this.y-7;return m}},
 active:[],fc:15,ic:13,mini:[],ar:!1,mm:0,h:0,hd:5,
 fo:function(w){return windows.active.indexOf(w)==windows.active.length-1},
-to:function(fn,w){return Function("var a = Array.prototype.slice.call(arguments);var h=windows.tr.i["+fn+"];for(var g in a){if(h[1].indexOf(Number(g))>-1){a[g]+=(h[1].indexOf(Number(g))%2==0?this.x+2:this.y+8)}};h[0](a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],a[9],a[10],a[11],a[12],a[13])").bind(w)},
-it:function(fn,w){return Function("var a = Array.prototype.slice.call(arguments);return windows.fo(this)&&windows.tr.st["+fn+"](a[0],a[1],a[2])").bind(w)},
+to:function(fn,w){return function(){var a = Array.prototype.slice.call(arguments),h=windows.tr.i[fn],g;for(g in a)if(h[1].indexOf(Number(g))>-1)a[g]+=(h[1].indexOf(Number(g))%2==0?this.x+2:this.y+8);h[0].apply(this,a)}.bind(w)},
+it:function(fn,w){return function(){var a = Array.prototype.slice.call(arguments);return windows.fo(this)&&windows.tr.st[fn].apply(this,a)}.bind(w)},
 ii:function(p,q,x,y,w,h){return p>=x&&p<=x+w&&q>=y&&q<=y+h},
-co:function(x,y,l){var f=!0,i;for(i=windows.active.length-1;i>l&&i>=0;i--)f=windows.ii(x,y,windows.active[i].x,windows.active[i].y,windows.active[i].w,windows.active[i].h)?!1:f;return f},
+co:function(x,y,l){var f=!0,w=windows.active,i;for(i=w.length-1;i>l&&i>=0;i--)f=windows.ii(x,y,w[i].x,w[i].y,w[i].w,w[i].h)?!1:f;return f},
 clw:function(w){return windows.active.splice(windows.active.lastIndexOf(w),1)[0]},
-add:function(){this.add=this.active.push}}
-windows.add()
+add:function(w){windows.active.push(w)}}
 
 function Window(x,y,w,h,title,render,buttons,update,resizeable,fc,ic,onclose,gotfocus,lostfocus){
 //position and size settings
@@ -45,16 +44,17 @@ return this
 function render(){
 var m=mouse(),K,w,H,Z,C
 if(!m[2]){windows.ar=!1;windows.dx=undefined;windows.dy=undefined;windows.mm=0}
-if(m[0]>239)m[0]=239
-if(m[0]<0)m[0]=0
-if(m[1]>135)m[1]=135
-if(m[1]<0)m[1]=0
+//mouse limitations
+if(m[0]>239)m[0]=239;if(m[0]<0)m[0]=0
+if(m[1]>135)m[1]=135;if(m[1]<0)m[1]=0
 //focus handling
+C=windows.active
 if(windows.co(m[0],m[1],-1)&&m[2]){windows.ar=!0}
-if(m[2]&&!windows.ar&&!(windows.dx||windows.dy)){K=function(x,y){for(var i=windows.active.length-2;i>-1;i--){var w=windows.active[i];if(windows.ii(x,y,w.x,w.y,w.w,w.h)&&windows.co(x,y,i)&&!(i==-1)){windows.active.push(windows.active.splice(i,1)[0]);return !0}}return !1}(m[0],m[1])}
-if(K){windows.active[windows.active.length-1].Fg();windows.active[windows.active.length-2].Fl();windows.ar=!0}
+if(m[2]&&!windows.ar&&!(windows.dx||windows.dy))K=function(x,y){for(var i=C.length-2;i>-1;i--){var w=C[i];if(windows.ii(x,y,w.x,w.y,w.w,w.h)&&windows.co(x,y,i)){C.push(C.splice(i,1)[0]);return !0}}}(m[0],m[1])
+if(K){C[C.length-1].Fg();C[C.length-2].Fl();windows.ar=!0}
 
 for(C in windows.mini){
+//rendering minimized windows
 w=windows.mini[C]
 K=(C%4)*60,H=128-((C/4)|0)*8
 C=K+51-(w.btns&1)*7
@@ -68,7 +68,7 @@ rectb(C+2,H+3,3,3,w.ic);rectb(C+3,H+1,4,3,w.ic);line(C,H+1,C,H+5,w.ic)
 for(H in windows.active){
 w=windows.active[H]
 
-//click handlers
+//click handlers for window edges
 if(m[2]&&windows.co(m[0],m[1],windows.active.indexOf(w))&&(!windows.ar||K)){
 m.h=function(a,b,c,d){return windows.ii(m[0],m[1],a,b,c,d)}
 if(m.h(w.x+2,w.y+1,w.w-(Number(w.btns&7).toString(2).match(/1/g).length)*7-1,6))windows.mm=1
@@ -102,22 +102,22 @@ case 9:w.y=w.h>16?m[1]:w.y;w.h=(windows.bh+windows.by-m[1]>16)?windows.bh+window
 }}
 
 H=windows.tr.i
-rect=H[7][0]
-line=H[3][0]
-rectb=H[8][0]
-print=H[6][0]
+rect=H[7][0];line=H[3][0]
+rectb=H[8][0];print=H[6][0]
 //drawing the frame
 rect(w.x,w.y,w.w+1,w.h+1,w.fc)
 rectb(w.x+1,w.y+7,w.w-1,w.h-7,w.ic)
 C=w.x+w.w
+//buttons
 if(w.btns&1){C-=7;line(C+2,w.y+1,C+5,w.y+5,w.ic);line(C+2,w.y+5,C+5,w.y+1,w.ic);line(C,w.y+1,C,w.y+5,w.ic)}
 if(w.btns&2){C-=7;rectb(C+2,w.y+1,4,4,w.ic);line(C,w.y+1,C,w.y+5,w.ic)}
 if(w.btns&4){C-=7;line(C+2,w.y+5,C+5,w.y+5,w.ic);line(C,w.y+1,C,w.y+5,w.ic)}
 C-=w.x+3
+//header
 for(H in w.title){if(print(w.title.slice(0,H)+(H<w.title.length?"...":""),0,240,0,!1,1,!0)>C){break}}
 print(H<w.title.length-1?w.title.slice(0,H)+"...":w.title,w.x+1,w.y+1,w.ic,!1,1,!0)
 
-//translating all commands to give the correct positions
+//translating and capturing inputs
 circ=windows.to(0,w);circb=windows.to(1,w)
 font=windows.to(2,w);line=windows.to(3,w)
 map=windows.to(4,w);pix=windows.to(5,w);print=windows.to(6,w)
@@ -128,6 +128,7 @@ key=windows.it(0,w);keyp=windows.it(1,w)
 btn=windows.it(2,w);btnp=windows.it(3,w)
 mouse=windows.tr.mo.bind(w)
 clip(w.x+2,w.y+8,w.w-3,w.h-9)
+//calling the actual functions
 w.upd.bind(w)()
 w.rnd.bind(w)()
 clip()
