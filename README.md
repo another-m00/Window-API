@@ -118,6 +118,6 @@ Minified version (Soon)
 
 [Examples](https://github.com/another-m00/Window-API/tree/main/Js%20code/examples)
 
-[API code](https://github.com/another-m00/Window-API/blob/main/Js%20code/Window%20API.js)
+[API code](https://github.com/another-m00/Window-API/blob/main/Js%20code/window-api.js)
 
 [Live demo](https://tic80.com/play?cart=3039)
