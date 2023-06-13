@@ -15,3 +15,6 @@
 
 ### The code is a complete mess
    Yes. I tried to write a code that is somewhat efficient, and small. I may have failed.
+
+### A window without calling cls won't work
+  This is because the window doesnt store it's inner drawings, if you drag around a window that does'nt call cls() in each rendering frame, the already drawn parts won't move or will conflict with the other windows. Basically a whole reseign of the api is needed to implement the memory copying.

@@ -42,20 +42,20 @@ this.re=resizeable||!0
 return this
 }
 function render(){
-var m=mouse(),K,w,H,Z,C
-if(!m[2]){windows.ar=!1;windows.dx=undefined;windows.dy=undefined;windows.mm=0}
+var m=mouse(),S=windows,K,w,H,Z,C
+if(!m[2]){S.ar=!1;S.dx=undefined;S.dy=undefined;S.mm=0}
 //mouse limitations
 if(m[0]>239)m[0]=239;if(m[0]<0)m[0]=0
 if(m[1]>135)m[1]=135;if(m[1]<0)m[1]=0
 //focus handling
-C=windows.active
-if(windows.co(m[0],m[1],-1)&&m[2]){windows.ar=!0}
-if(m[2]&&!windows.ar&&!(windows.dx||windows.dy))K=function(x,y){for(var i=C.length-2;i>-1;i--){var w=C[i];if(windows.ii(x,y,w.x,w.y,w.w,w.h)&&windows.co(x,y,i)){C.push(C.splice(i,1)[0]);return !0}}}(m[0],m[1])
-if(K){C[C.length-1].Fg();C[C.length-2].Fl();windows.ar=!0}
+C=S.active
+if(S.co(m[0],m[1],-1)&&m[2]){S.ar=!0}
+if(m[2]&&!S.ar&&!(S.dx||S.dy))K=function(x,y){for(var i=C.length-2;i>-1;i--){var w=C[i];if(S.ii(x,y,w.x,w.y,w.w,w.h)&&S.co(x,y,i)){C.push(C.splice(i,1)[0]);return !0}}}(m[0],m[1])
+if(K){C[C.length-1].Fg();C[C.length-2].Fl();S.ar=!0}
 
-for(C in windows.mini){
+for(C in S.mini){
 //rendering minimized windows
-w=windows.mini[C]
+w=S.mini[C]
 K=(C%4)*60,H=128-((C/4)|0)*8
 C=K+51-(w.btns&1)*7
 rect(K,H,60,8,w.fc)
@@ -65,43 +65,43 @@ if(w.btns&1){line(K+55,H+1,K+58,H+5,w.ic);line(K+55,H+5,K+58,H+1,w.ic);line(K+52
 rectb(C+2,H+3,3,3,w.ic);rectb(C+3,H+1,4,3,w.ic);line(C,H+1,C,H+5,w.ic)
 }
 
-for(H in windows.active){
-w=windows.active[H]
+for(H in S.active){
+w=S.active[H]
 
 //click handlers for window edges
-if(m[2]&&windows.co(m[0],m[1],windows.active.indexOf(w))&&(!windows.ar||K)){
-m.h=function(a,b,c,d){return windows.ii(m[0],m[1],a,b,c,d)}
-if(m.h(w.x+2,w.y+1,w.w-(Number(w.btns&7).toString(2).match(/1/g).length)*7-1,6))windows.mm=1
-if(m.h(w.x+w.w-2,w.y+8,2,w.h-11))windows.mm=2
-if(m.h(w.x,w.y+2,2,w.h-4)){windows.mm=3;windows.bw=w.w}
-if(m.h(w.x+2,w.y+w.h-2,w.w-5,2))windows.mm=4
-if(m.h(w.x,w.y,w.w,1)){windows.mm=5;windows.bh=w.h}
-if(m.h(w.x+w.w-2,w.y+w.h-2,2,2))windows.mm=7
-if(m.h(w.x,w.y,2,2)){windows.mm=6;windows.bh=w.h;windows.bw=w.w}
-if(m.h(w.x,w.y+w.h-2,2,2)){windows.mm=8;windows.bw=w.w}
-if(m.h(w.x+w.w-2,w.y,2,2)){windows.mm=9;windows.bh=w.h}
-if(!w.re&&windows.mm>1)windows.mm=0
+if(m[2]&&S.co(m[0],m[1],S.active.indexOf(w))&&(!S.ar||K)){
+m.h=function(a,b,c,d){return S.ii(m[0],m[1],a,b,c,d)}
+if(m.h(w.x+2,w.y+1,w.w-(Number(w.btns&7).toString(2).match(/1/g).length)*7-1,6))S.mm=1
+if(m.h(w.x+w.w-2,w.y+8,2,w.h-11))S.mm=2
+if(m.h(w.x,w.y+2,2,w.h-4)){S.mm=3;S.bw=w.w}
+if(m.h(w.x+2,w.y+w.h-2,w.w-5,2))S.mm=4
+if(m.h(w.x,w.y,w.w,1)){S.mm=5;S.bh=w.h}
+if(m.h(w.x+w.w-2,w.y+w.h-2,2,2))S.mm=7
+if(m.h(w.x,w.y,2,2)){S.mm=6;S.bh=w.h;S.bw=w.w}
+if(m.h(w.x,w.y+w.h-2,2,2)){S.mm=8;S.bw=w.w}
+if(m.h(w.x+w.w-2,w.y,2,2)){S.mm=9;S.bh=w.h}
+if(!w.re&&S.mm>1)S.mm=0
 //window buttons
-if(m.h(w.x+w.w-7,w.y,5,6)&&w.btns&&1){if(!w.onclose())windows.clw(w)}
+if(m.h(w.x+w.w-7,w.y,5,6)&&w.btns&&1){if(!w.onclose())S.clw(w)}
 if(m.h(w.x+w.w-7-(w.btns&1)*7,w.y,5,6)&&w.btns&2){if(w.w==240&&w.h==136&&!(w.x||w.y)){w.x=w.by;w.y=w.by;w.w=w.dx;w.h=w.dy}else{w.bx=w.x;w.by=w.y;w.dx=w.w;w.dy=w.h;w.x=0;w.y=0;w.w=240;w.h=136}}
-if(m.h(w.x+w.w-7-(w.btns&1)*7-(w.btns&2)*3.5,w.y,5,6)&&w.btns&4)windows.mini.push(windows.clw(w))
-windows.mi=w}
-if(m[2]&&windows.ii(m[0],m[1],w.x+2,w.y+8,w.w-6,w.h-11)&&windows.co(m[0],m[1],H))windows.ar=!0
-if(windows.mm!=0&&windows.dx===undefined){windows.dx=m[0];windows.dy=m[1];windows.ar=!0;windows.bx=w.x;windows.by=w.y}
-if(windows.mi==w){
-switch(windows.mm){
-case 1:w.x=windows.bx+m[0]-windows.dx<=240?windows.bx+m[0]-windows.dx:0;w.y=windows.by+m[1]-windows.dy<136?windows.by+m[1]-windows.dy:0;break//whole window
+if(m.h(w.x+w.w-7-(w.btns&1)*7-(w.btns&2)*3.5,w.y,5,6)&&w.btns&4)S.mini.push(S.clw(w))
+S.mi=w}
+if(m[2]&&S.ii(m[0],m[1],w.x+2,w.y+8,w.w-6,w.h-11)&&S.co(m[0],m[1],H))S.ar=!0
+if(S.mm!=0&&S.dx===undefined){S.dx=m[0];S.dy=m[1];S.ar=!0;S.bx=w.x;S.by=w.y}
+if(S.mi==w){
+switch(S.mm){
+case 1:w.x=S.bx+m[0]-S.dx<=240?S.bx+m[0]-S.dx:0;w.y=S.by+m[1]-S.dy<136?S.by+m[1]-S.dy:0;break//whole window
 case 2:w.w=m[0]-w.x>25?m[0]-w.x:25;break//rigth side
-case 3:w.x=w.w>25?m[0]:w.x;w.w=windows.bw+windows.bx-m[0]>25?windows.bw+windows.dx-m[0]:25;break//left side
+case 3:w.x=w.w>25?m[0]:w.x;w.w=S.bw+S.bx-m[0]>25?S.bw+S.dx-m[0]:25;break//left side
 case 4:w.h=m[1]-w.y>16?m[1]-w.y:16;break//bottom side
-case 5:w.y=w.h>16?m[1]:w.y;w.h=windows.bh+windows.by-m[1]>16?windows.bh+windows.dy-m[1]:16;break//top side
-case 6:w.x=w.w>25?m[0]:w.x;w.w=windows.bw+windows.bx-m[0]>25?windows.bw+windows.dx-m[0]:25;w.y=w.h>16?m[1]:w.y;w.h=windows.bh+windows.by-m[1]>16?windows.bh+windows.dy-m[1]:16;break//nw corner
+case 5:w.y=w.h>16?m[1]:w.y;w.h=S.bh+S.by-m[1]>16?S.bh+S.dy-m[1]:16;break//top side
+case 6:w.x=w.w>25?m[0]:w.x;w.w=S.bw+S.bx-m[0]>25?S.bw+S.dx-m[0]:25;w.y=w.h>16?m[1]:w.y;w.h=S.bh+S.by-m[1]>16?S.bh+S.dy-m[1]:16;break//nw corner
 case 7:w.w=m[0]-w.x>25?m[0]-w.x:25;w.h=m[1]-w.y>16?m[1]-w.y:16;break//se corner
-case 8:w.h=m[1]-w.y>16?m[1]-w.y:16;w.x=w.w>25?m[0]:w.x;w.w=windows.bw+windows.bx-m[0]>25?windows.bw+windows.dx-m[0]:25;break//sw corner
-case 9:w.y=w.h>16?m[1]:w.y;w.h=(windows.bh+windows.by-m[1]>16)?windows.bh+windows.dy-m[1]:16;w.w=(w.w<25||w.x+25>m[0])?25:m[0]-w.x//ne corner
+case 8:w.h=m[1]-w.y>16?m[1]-w.y:16;w.x=w.w>25?m[0]:w.x;w.w=S.bw+S.bx-m[0]>25?S.bw+S.dx-m[0]:25;break//sw corner
+case 9:w.y=w.h>16?m[1]:w.y;w.h=(S.bh+S.by-m[1]>16)?S.bh+S.dy-m[1]:16;w.w=(w.w<25||w.x+25>m[0])?25:m[0]-w.x//ne corner
 }}
 
-H=windows.tr.i
+H=S.tr.i
 rect=H[7][0];line=H[3][0]
 rectb=H[8][0];print=H[6][0]
 //drawing the frame
@@ -118,15 +118,15 @@ for(H in w.title){if(print(w.title.slice(0,H)+(H<w.title.length?"...":""),0,240,
 print(H<w.title.length-1?w.title.slice(0,H)+"...":w.title,w.x+1,w.y+1,w.ic,!1,1,!0)
 
 //translating and capturing inputs
-circ=windows.to(0,w);circb=windows.to(1,w)
-font=windows.to(2,w);line=windows.to(3,w)
-map=windows.to(4,w);pix=windows.to(5,w);print=windows.to(6,w)
-rect=windows.to(7,w);rectb=windows.to(8,w);spr=windows.to(9,w)
-tri=windows.to(10,w);textri=windows.to(11,w)
-elli=windows.to(12,w);ellib=windows.to(13,w)
-key=windows.it(0,w);keyp=windows.it(1,w)
-btn=windows.it(2,w);btnp=windows.it(3,w)
-mouse=windows.tr.mo.bind(w)
+circ=S.to(0,w);circb=S.to(1,w)
+font=S.to(2,w);line=S.to(3,w)
+map=S.to(4,w);pix=S.to(5,w);print=S.to(6,w)
+rect=S.to(7,w);rectb=S.to(8,w);spr=S.to(9,w)
+tri=S.to(10,w);textri=S.to(11,w)
+elli=S.to(12,w);ellib=S.to(13,w)
+key=S.it(0,w);keyp=S.it(1,w)
+btn=S.it(2,w);btnp=S.it(3,w)
+mouse=S.tr.mo.bind(w)
 clip(w.x+2,w.y+8,w.w-3,w.h-9)
 //calling the actual functions
 w.upd.bind(w)()
@@ -135,13 +135,13 @@ clip()
 w.td++
 w.t++
 }
-for(K in windows.mini){
-w=windows.mini[K]
+for(K in S.mini){
+w=S.mini[K]
 H=128-((K/4)|0)*8,C=(K%4)*60+51-(w.btns&1)*7
 //minimized window clicks
 if(m[2]){
-if(windows.ii(m[0],m[1],C,H,7,8)&&windows.co(m[0],m[1],-1)){windows.active.push(windows.mini.splice(K,1)[0]);w.Fg()}
-if(windows.ii(m[0],m[1],C+7,H,7,8)&&windows.co(m[0],m[1],-1)&&w.btns&1){windows.mini.splice(K,1)}
+if(S.ii(m[0],m[1],C,H,7,8)&&S.co(m[0],m[1],-1)){S.active.push(S.mini.splice(K,1)[0]);w.Fg()}
+if(S.ii(m[0],m[1],C+7,H,7,8)&&S.co(m[0],m[1],-1)&&w.btns&1){S.mini.splice(K,1)}
 }
 //disabling the input commands
 Z=function(){return 0}
